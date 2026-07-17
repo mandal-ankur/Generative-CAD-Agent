@@ -1,0 +1,270 @@
+
+========================================================================
+BENCHMARK RUN — 2026-07-16 15:12:31
+Category filter: ALL  |  Prompts: 1
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+[1/1] ID=1  Category=Scale
+Prompt   : Make a simple cube that is 50mm per side
+Status   : SUCCESS  |  Attempts: 1  |  Time: 38.93s
+ErrTypes : None
+History  :
+    (none)
+
+
+========================================================================
+SUMMARY  passed=1  failed=0  total_time=38.9s
+========================================================================
+
+
+[2026-07-16 09:55:43] ID=gui_1784195702 | GUI | PASS | attempts=2 | time=40.36s
+  Prompt: make a sphere of 10mm radius
+  [Attempt 1] (PhysicsValidation): {'error_type': 'ScaleViolation', 'actual_size': 20.0, 'requested_size': 10.0, 'message': 'Dimension Mismatch: The part is 20.0mm, but requested 10.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.50. For example, if you used radius=10, change it to radius=5.0.'}
+
+[2026-07-16 09:58:35] ID=gui_1784195902 | GUI | PASS | attempts=1 | time=13.47s
+  Prompt: make a cylinder of 10mm radius and 50 mm height
+
+[2026-07-16 09:59:53] ID=gui_1784195975 | GUI | PASS | attempts=1 | time=18.55s
+  Prompt: make a hollow cylinder of inner 10 mm radius, outer radius 15 mm and 50 mm height
+
+[2026-07-16 10:00:35] ID=gui_1784196022 | GUI | PASS | attempts=1 | time=13.47s
+  Prompt: make a cylinder of inner 10 mm radius, outer radius 15 mm and 50 mm height
+
+========================================================================
+BENCHMARK RUN — 2026-07-16 15:35:32
+Category filter: ALL  |  Prompts: 14
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+[1/14] ID=1  Category=Scale
+Prompt   : Make a simple cube that is 50mm per side
+Status   : SUCCESS  |  Attempts: 1  |  Time: 31.33s
+ErrTypes : None
+History  :
+    (none)
+
+
+────────────────────────────────────────────────────────────────────────
+[2/14] ID=2  Category=Scale
+Prompt   : Make a cylinder that is 100mm tall with a 20mm radius
+Status   : SUCCESS  |  Attempts: 1  |  Time: 16.34s
+ErrTypes : None
+History  :
+    (none)
+
+
+────────────────────────────────────────────────────────────────────────
+[3/14] ID=3  Category=Hollow/Thin
+Prompt   : Make a hollow box with 5mm thick walls
+Status   : FAILED  |  Attempts: 15  |  Time: 155.47s
+ErrTypes : PhysicsValidation, SyntaxError
+History  :
+    [Attempt 1] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 2] (PhysicsValidation)
+      Dimension Mismatch: The part is 100.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.05. For example, if you u
+    [Attempt 3] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 4] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 5] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 6] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 7] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 8] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 9] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 10] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 11] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 12] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 13] (PhysicsValidation)
+      Dimension Mismatch: The part is 60.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.08. For example, if you us
+    [Attempt 14] (SyntaxError)
+      Python Execution Error: Box.__init__() got an unexpected keyword argument 'x'
+    [Attempt 15] (PhysicsValidation)
+      Dimension Mismatch: The part is 60.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.08. For example, if you us
+FinalErr : 
+
+
+────────────────────────────────────────────────────────────────────────
+[4/14] ID=4  Category=Hollow/Thin
+Prompt   : Make a hollow cylinder with 4mm thick walls
+Status   : SUCCESS  |  Attempts: 2  |  Time: 34.53s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      Dimension Mismatch: The part is 30.0mm, but requested 4.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.13. For example, if you us
+
+
+────────────────────────────────────────────────────────────────────────
+[5/14] ID=5  Category=Bracket/Holes
+Prompt   : Create a basic L-bracket without any mounting holes
+Status   : FAILED  |  Attempts: 15  |  Time: 188.46s
+ErrTypes : PhysicsValidation, SyntaxError
+History  :
+    [Attempt 1] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 2] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 3] (SyntaxError)
+      Python Execution Error: Cylinder.__init__() got an unexpected keyword argument 'center'
+    [Attempt 4] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 5] (SyntaxError)
+      CRITICAL API FIX: You are trying to add or subtract the 'BuildPart' object itself! Build your ENTIRE assembly inside ONE SINGLE 'with BuildPart() as p:' block. Do not try to append to 'p'.
+
+Original T
+    [Attempt 6] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 7] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 8] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 9] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+    [Attempt 10] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 11] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+    [Attempt 12] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 13] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+    [Attempt 14] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+    [Attempt 15] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+FinalErr : 
+
+
+────────────────────────────────────────────────────────────────────────
+[6/14] ID=6  Category=Bracket/Holes
+Prompt   : Make a simple flat bracket with one centered hole
+Status   : SUCCESS  |  Attempts: 4  |  Time: 71.98s
+ErrTypes : SyntaxError, PhysicsValidation
+History  :
+    [Attempt 1] (SyntaxError)
+      Python Execution Error: 'BuildPart' object is not iterable
+    [Attempt 2] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+    [Attempt 3] (PhysicsValidation)
+      User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main b
+
+
+────────────────────────────────────────────────────────────────────────
+[7/14] ID=7  Category=Stability
+Prompt   : Make a basic block standing on its widest face
+Status   : SUCCESS  |  Attempts: 1  |  Time: 27.0s
+ErrTypes : None
+History  :
+    (none)
+
+
+────────────────────────────────────────────────────────────────────────
+[8/14] ID=8  Category=Stability
+Prompt   : Create a simple cylinder standing upright on its flat end
+Status   : SUCCESS  |  Attempts: 1  |  Time: 18.47s
+ErrTypes : None
+History  :
+    (none)
+
+
+────────────────────────────────────────────────────────────────────────
+[9/14] ID=9  Category=Overhangs
+Prompt   : Make a small step that overhangs by 5mm
+Status   : FAILED  |  Attempts: 15  |  Time: 221.33s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 2] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 3] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 4] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 5] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 6] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 7] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 8] (PhysicsValidation)
+      Dimension Mismatch: The part is 40.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.12. For example, if you us
+    [Attempt 9] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 10] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 11] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.11. For example, if you us
+    [Attempt 12] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 13] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 14] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+    [Attempt 15] (PhysicsValidation)
+      Dimension Mismatch: The part is 50.0mm, but requested 5.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.10. For example, if you us
+FinalErr : 
+
+
+────────────────────────────────────────────────────────────────────────
+[10/14] ID=10  Category=Overhangs
+Prompt   : Create a ledge that overhangs by 15mm
+Status   : SUCCESS  |  Attempts: 2  |  Time: 36.61s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      Dimension Mismatch: The part is 45.0mm, but requested 15.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.33. For example, if you u
+
+
+────────────────────────────────────────────────────────────────────────
+[11/14] ID=11  Category=Control
+Prompt   : Make a basic 50x50x5mm plate
+Status   : SUCCESS  |  Attempts: 2  |  Time: 35.04s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+
+
+────────────────────────────────────────────────────────────────────────
+[12/14] ID=12  Category=Control
+Prompt   : Create a simple cylinder with a radius of 10 and height of 20
+Status   : SUCCESS  |  Attempts: 1  |  Time: 8.04s
+ErrTypes : None
+History  :
+    (none)
+
+
+────────────────────────────────────────────────────────────────────────
+[13/14] ID=13  Category=Adhesion
+Prompt   : Make a 20mm cube sitting flat on a large base
+Status   : SUCCESS  |  Attempts: 2  |  Time: 22.79s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      Dimension Mismatch: The part is 40.0mm, but requested 20.0mm. (Allowed range: 0.5x - 1.5x). HINT TO FIX: Multiply your base dimensions (length, width, or radius) by exactly 0.50. For example, if you u
+
+
+────────────────────────────────────────────────────────────────────────
+[14/14] ID=14  Category=Adhesion
+Prompt   : Create a box with a wide flat bottom resting normally on the build plate
+Status   : SUCCESS  |  Attempts: 2  |  Time: 30.36s
+ErrTypes : PhysicsValidation
+History  :
+    [Attempt 1] (PhysicsValidation)
+      User requested a bracket, but you generated a flat plate or solid block. A bracket must have horizontal and vertical flanges (an L-shape or U-shape). HINT TO FIX: Create an L-bracket by combining two 
+
+
+========================================================================
+SUMMARY  passed=11  failed=3  total_time=897.8s
+========================================================================
+

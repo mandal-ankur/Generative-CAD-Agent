@@ -1,0 +1,6 @@
+ID,category,prompt,attempts,execution_time,success,error_type,final_error
+1,Scale,Make a simple cube that is 50mm per side,1,38.93,TRUE,,
+2026-07-16 09:55:43,gui_1784195702,GUI,make a sphere of 10mm radius,2,0,1,40.36,TRUE,PhysicsValidation,
+2026-07-16 09:58:35,gui_1784195902,GUI,make a cylinder of 10mm radius and 50 mm height,1,0,0,13.47,TRUE,,
+2026-07-16 09:59:53,gui_1784195975,GUI,"make a hollow cylinder of inner 10 mm radius, outer radius 15 mm and 50 mm height",1,0,0,18.55,TRUE,,
+2026-07-16 10:00:35,gui_1784196022,GUI,"make a cylinder of inner 10 mm radius, outer radius 15 mm and 50 mm height",1,0,0,13.47,TRUE,,

@@ -1,0 +1,12 @@
+streamlit
+build123d
+google-genai
+ollama
+python-dotenv
+requests
+chromadb
+sentence-transformers
+langgraph
+langchain
+ipykernel
+

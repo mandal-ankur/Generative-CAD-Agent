@@ -1,0 +1,12 @@
+[project]
+name = "generative-cad-agent"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "build123d>=0.11.1",
+    "langgraph>=1.2.9",
+    "ollama>=0.6.2",
+    "streamlit>=1.59.2",
+]

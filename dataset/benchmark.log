@@ -268,3 +268,18 @@ History  :
 SUMMARY  passed=11  failed=3  total_time=897.8s
 ========================================================================
 
+
+[2026-07-21 07:11:29] ID=gui_1784617732 | GUI | PASS | attempts=7 | time=157.65s
+  Prompt: Generate a U-bracket with tapered upper edges, a double-hole mounting base, and single through-holes on each vertical leg
+  [Attempt 1] (SyntaxError): Python Execution Error: BuildSketch doesn't have a Polyline object or operation (Polyline applies to ['BuildLine'])
+  [Attempt 2] (SyntaxError): Python Execution Error: BuildPart doesn't have a SlotOverall object or operation (SlotOverall applies to ['BuildSketch'])
+  [Attempt 3] (SyntaxError): CRITICAL API FIX: In newer build123d versions, use 'align=(Align.CENTER, Align.CENTER, Align.CENTER)' instead of string alignments.
+
+Original Traceback: Python Execution Error: Hole.__init__() got an unexpected keyword argument 'align'
+  [Attempt 4] (SyntaxError): CRITICAL API FIX: Your script has a Python syntax error. Check for missing colons after 'with' statements, mismatched parentheses, or incorrect indentation. The script must be valid Python.
+
+Original Traceback: Python Execution Error: invalid syntax. Perhaps you forgot a comma? (<string>, line 31)
+  [Attempt 5] (SyntaxError): CRITICAL API FIX: Do NOT attempt to add fillets or chamfers. Keep the geometry simple using basic, sharp-cornered primitives.
+
+Original Traceback: Python Execution Error: name 'Fillet' is not defined
+  [Attempt 6] (SyntaxError): Python Execution Error: name 'MoveTo' is not defined

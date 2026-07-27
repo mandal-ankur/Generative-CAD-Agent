@@ -13,6 +13,6 @@ langgraph
 langchain
 ipykernel
 mlx-lm
+streamlit_stl
 antigravity
-
 

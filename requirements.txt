@@ -1,7 +1,10 @@
+#python-3.11.x
+#uv
 streamlit
 build123d
 google-genai
 ollama
+openai
 python-dotenv
 requests
 chromadb
@@ -9,4 +12,7 @@ sentence-transformers
 langgraph
 langchain
 ipykernel
+mlx-lm
+antigravity
+
 

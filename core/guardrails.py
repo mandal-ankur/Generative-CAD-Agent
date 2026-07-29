@@ -59,6 +59,7 @@ SYNTAX_LOOKUP = {
     "Invalid positional arguments": "You likely passed coordinates as separate positional arguments (e.g., Locations(X, Y, Z)). You MUST wrap them in a single tuple: Locations((X, Y, Z)). Note the double parentheses!",
     "BuildPart.__init__() got an unexpected keyword argument 'align'": "BuildPart() does not accept the 'align' parameter. The 'align' parameter should only be specified on individual primitive shapes (like Box, Cylinder, Sphere) inside the BuildPart context.",
     "name 'wall_thickness' is not defined": "The variable 'wall_thickness' is not defined. Make sure you define it before using it in your operations (e.g., wall_thickness = 2.0).",
+    "name 'DEG' is not defined": "In Python / build123d, do not use 'DEG' directly. Use standard angle values in degrees directly or import math and use math.radians().",
 }
 
 def get_smart_feedback(raw_error):

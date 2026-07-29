@@ -148,7 +148,7 @@ def executor_node(state: CADState) -> dict:
     for f in os.listdir(out_dir):
         os.remove(os.path.join(out_dir, f))
 
-    exec_globals = {"__builtins__": __builtins__, "json": json, "os": os, "re": re, "math": math, "get_shape_blueprint": lambda *a, **k: ""}
+    exec_globals = {"__builtins__": __builtins__, "json": json, "os": os, "re": re, "math": math, "DEG": math.pi / 180.0, "deg": math.pi / 180.0, "get_shape_blueprint": lambda *a, **k: ""}
 
     try:
         exec(code_block, exec_globals)

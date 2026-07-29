@@ -19,7 +19,7 @@ os.environ.setdefault("HF_HUB_DISABLE_IMPLICIT_TOKEN", "1")
 _PROJECT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 _CHROMA  = os.path.join(_PROJECT, ".DB")
 _DOCS_DIRS = [
-    os.path.join(_PROJECT, "build123d"),
+    os.path.join(_PROJECT, "build123d-docs"),
     os.path.join(_PROJECT, "chroma"),
     os.path.join(_PROJECT, "langgraph"),
     os.path.join(_PROJECT, "ollama-python"),

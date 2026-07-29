@@ -504,21 +504,32 @@ else:
                 app.button("📥 Download STL (unavailable)", disabled=True, use_container_width=True)
 
         # Workspace content placeholder
-        app.info("💡 The 3D model preview and other workspace content will be placed here. Connect `backend.generate_cad_part()` in the TODO block above to enable live generation.")
+                #import pyvista as pv
+                #import stpyvista
 
-    elif status == "fail" and result:
-        # ── Failure workspace ──────────────────────────────────
-        app.error(f"❌ Generation failed after {result.get('retries', '?')} attempts.")
-        if result.get("final_error"):
-            with app.expander("🔍 Error details", expanded=True):
-                app.code(result["final_error"], language="text")
-        if result.get("history"):
-            with app.expander(f"📋 Retry log ({len(result['history'])} entries)"):
-                for h in result["history"]:
-                    app.write(f"**Attempt {h.get('attempt')}** — `{h.get('type', 'Error')}`")
-                    msg = h.get("message") or h.get("details", {}).get("message", "")
-                    if msg:
-                        app.code(msg[:300], language="text")
+                #if stl_path and os.path.exists(stl_path):
+                    #app.subheader("🧊 3D Preview")
+                    #mesh = pv.read(stl_path)
+                    #plotter = pv.Plotter(window_size=[700, 500])
+                    #plotter.add_mesh(mesh, color="#6366f1", show_edges=False)
+                    #plotter.background_color = "#0d0f1a"
+                    #plotter.view_isometric()
+                    #stpyvista.stpyvista(plotter, key="cad_preview")
+
+
+                #elif status == "fail" and result:
+                    # ── Failure workspace ──────────────────────────────────
+                 #   app.error(f"❌ Generation failed after {result.get('retries', '?')} attempts.")
+                  #  if result.get("final_error"):
+                   #     with app.expander("🔍 Error details", expanded=True):
+                    #        app.code(result["final_error"], language="text")
+                    #if result.get("history"):
+                     #   with app.expander(f"📋 Retry log ({len(result['history'])} entries)"):
+                      #      for h in result["history"]:
+                       #         app.write(f"**Attempt {h.get('attempt')}** — `{h.get('type', 'Error')}`")
+                        #        msg = h.get("message") or h.get("details", {}).get("message", "")
+                         #       if msg:
+                          #          app.code(msg[:300], language="text")
 
 
 
@@ -544,3 +555,4 @@ app.markdown("</div></div>", unsafe_allow_html=True)
 if submit and prompt_input.strip():
     app.session_state.pending_prompt = prompt_input.strip()
     app.rerun()
+

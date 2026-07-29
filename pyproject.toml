@@ -3,10 +3,23 @@ name = "generative-cad-agent"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.11"
 dependencies = [
     "build123d>=0.11.1",
+    "chromadb>=1.5.9",
+    "google-genai",
+    "langchain",
     "langgraph>=1.2.9",
+    "mlx-lm",
     "ollama>=0.6.2",
+    "openai",
+    "python-dotenv",
+    "requests",
+    "sentence-transformers>=5.6.1",
     "streamlit>=1.59.2",
+    "streamlit-stl",
 ]
+
+[tool.uv]
+# The project virtual environment is set via UV_PROJECT_ENVIRONMENT=.env
+# (see activate.sh). The .env directory is a symlink to ../docs/.env

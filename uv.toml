@@ -1,0 +1,3 @@
+# uv configuration for Generative-CAD-Agent
+# Valid global uv settings only (project-environment is not a supported key here;
+# use UV_PROJECT_ENVIRONMENT env var instead — see activate.sh)

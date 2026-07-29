@@ -2,7 +2,8 @@
 import re
 import json
 import requests
-from build123d import GeomType, Axis
+from build123d import *
+from build123d import Axis  # explicit: needed for static analysis (Pylance can't resolve wildcard imports)
 
 def extract_dimensions(prompt):
     """Extracts all numbers from the prompt to use as reference for scaling."""

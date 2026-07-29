@@ -283,3 +283,21 @@ Original Traceback: Python Execution Error: invalid syntax. Perhaps you forgot a
 
 Original Traceback: Python Execution Error: name 'Fillet' is not defined
   [Attempt 6] (SyntaxError): Python Execution Error: name 'MoveTo' is not defined
+
+[2026-07-29 10:12:17] ID=gui_1785319921 | GUI | FAIL | attempts=15 | time=15.57s
+  Prompt: create a cube of 10mm
+  [Attempt 1] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 2] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 3] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 4] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 5] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 6] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 7] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 8] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 9] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 10] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 11] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 12] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 13] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 14] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 15] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.

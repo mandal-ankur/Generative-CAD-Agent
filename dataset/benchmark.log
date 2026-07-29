@@ -319,3 +319,26 @@ Original Traceback: Python Execution Error: name 'Fillet' is not defined
   [Attempt 13] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
   [Attempt 14] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
   [Attempt 15] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+
+[2026-07-29 10:55:12] ID=gui_1785322480 | GUI | PASS | attempts=1 | time=31.24s
+  Prompt: generate a cube of 5mm side
+
+[2026-07-29 11:13:25] ID=gui_1785322925 | GUI | FAIL | attempts=15 | time=679.61s
+  Prompt: Generate a U-bracket with tapered upper edges, a double-hole mounting base, and single through-holes on each vertical leg
+  [Attempt 1] (SyntaxError): CRITICAL API FIX: You likely passed coordinates as separate positional arguments (e.g., Locations(X, Y, Z)). You MUST wrap them in a single tuple: Locations((X, Y, Z)). Note the double parentheses!
+
+Original Traceback: Python Execution Error: Invalid positional arguments: (14.488887394336025, 2.5881904510252074, 0)
+  [Attempt 2] (SyntaxError): Python Execution Error: BuildSketch doesn't have a Hole object or operation (Hole applies to ['BuildPart'])
+  [Attempt 3] (SyntaxError): Python Execution Error: BuildSketch doesn't have a Hole object or operation (Hole applies to ['BuildPart'])
+  [Attempt 4] (SyntaxError): Python Execution Error: BuildSketch doesn't have a Hole object or operation (Hole applies to ['BuildPart'])
+  [Attempt 5] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 6] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 7] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 8] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 9] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 10] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 11] (PhysicsValidation): {'error_type': 'FunctionalViolation', 'issue': 'Missing Holes', 'message': 'User requested mounting holes, but no cylindrical cavities were detected. Use boolean subtraction to add holes. HINT TO FIX: You must use the minus operator (-) to subtract a Cylinder from your main body. Example: `hole = Cylinder(radius=2.5, height=50); final_part = main_body - hole`.'}
+  [Attempt 12] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 13] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 14] (SyntaxError): Python Execution Error: name 'DEG' is not defined
+  [Attempt 15] (SyntaxError): Python Execution Error: Face can only be created with closed wires

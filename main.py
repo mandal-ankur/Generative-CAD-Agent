@@ -460,6 +460,8 @@ else:
 
     elif status == "success" and result:
         # ── Success workspace ──────────────────────────────────
+        import os
+
         col_a, col_b, col_c = app.columns([1, 1, 1])
         with col_a:
             app.metric("Attempts", result.get("retries", "—"))
@@ -470,14 +472,13 @@ else:
 
         app.markdown("<br>", unsafe_allow_html=True)
 
-        # Download buttons
+        # ── Download buttons ───────────────────────────────────
         step_path = result.get("step")
-        stl_path = result.get("stl")
+        stl_path  = result.get("stl")
 
         dl_col1, dl_col2, _ = app.columns([1, 1, 2])
         with dl_col1:
-            if step_path:
-                import os
+            if step_path and os.path.exists(step_path):
                 with open(step_path, "rb") as f:
                     app.download_button(
                         label="📥 Download STEP",
@@ -490,8 +491,7 @@ else:
                 app.button("📥 Download STEP (unavailable)", disabled=True, use_container_width=True)
 
         with dl_col2:
-            if stl_path:
-                import os
+            if stl_path and os.path.exists(stl_path):
                 with open(stl_path, "rb") as f:
                     app.download_button(
                         label="📥 Download STL",
@@ -503,34 +503,84 @@ else:
             else:
                 app.button("📥 Download STL (unavailable)", disabled=True, use_container_width=True)
 
-        # Workspace content placeholder
-                #import pyvista as pv
-                #import stpyvista
+        # ── Live 3D Viewer ─────────────────────────────────────
+        if stl_path and os.path.exists(stl_path):
+            app.markdown("<br>", unsafe_allow_html=True)
+            app.markdown("""
+            <div style='
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(99,102,241,0.2);
+                border-radius: 14px;
+                padding: 1rem 1.2rem 0.5rem 1.2rem;
+                margin-bottom: 0.5rem;
+            '>
+                <div style='font-size:0.82rem; font-weight:600; color:#a5b4fc;
+                            margin-bottom:0.6rem; display:flex; align-items:center; gap:0.4rem;'>
+                    🧊 Live 3D Preview
+                    <span style='font-size:0.70rem; color:#6b7280; font-weight:400;'>
+                        — drag to rotate &nbsp;·&nbsp; scroll to zoom
+                    </span>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                #if stl_path and os.path.exists(stl_path):
-                    #app.subheader("🧊 3D Preview")
-                    #mesh = pv.read(stl_path)
-                    #plotter = pv.Plotter(window_size=[700, 500])
-                    #plotter.add_mesh(mesh, color="#6366f1", show_edges=False)
-                    #plotter.background_color = "#0d0f1a"
-                    #plotter.view_isometric()
-                    #stpyvista.stpyvista(plotter, key="cad_preview")
+            view_mode = app.session_state.get(f"view_mode_{active_idx}", "material")
 
+            from streamlit_stl import STLComponent
+            stl_comp = STLComponent()
+            stl_comp.stl_from_file(
+                file_path=stl_path,
+                color="#6366f1",
+                material=view_mode,
+                auto_rotate=False,
+                opacity=1,
+                shininess=120,
+                cam_v_angle=30,
+                cam_h_angle=-60,
+                cam_distance=0,
+                height=500,
+                key=f"cad_preview_{active_idx}_{view_mode}",
+            )
 
-                #elif status == "fail" and result:
-                    # ── Failure workspace ──────────────────────────────────
-                 #   app.error(f"❌ Generation failed after {result.get('retries', '?')} attempts.")
-                  #  if result.get("final_error"):
-                   #     with app.expander("🔍 Error details", expanded=True):
-                    #        app.code(result["final_error"], language="text")
-                    #if result.get("history"):
-                     #   with app.expander(f"📋 Retry log ({len(result['history'])} entries)"):
-                      #      for h in result["history"]:
-                       #         app.write(f"**Attempt {h.get('attempt')}** — `{h.get('type', 'Error')}`")
-                        #        msg = h.get("message") or h.get("details", {}).get("message", "")
-                         #       if msg:
-                          #          app.code(msg[:300], language="text")
+            # View-mode toggle row
+            app.markdown("<br>", unsafe_allow_html=True)
+            v1, v2, v3, _ = app.columns([1, 1, 1, 4])
+            with v1:
+                if app.button("🔵  Solid", key=f"solid_{active_idx}", use_container_width=True):
+                    app.session_state[f"view_mode_{active_idx}"] = "material"
+                    app.rerun()
+            with v2:
+                if app.button("🔲  Wireframe", key=f"wire_{active_idx}", use_container_width=True):
+                    app.session_state[f"view_mode_{active_idx}"] = "wireframe"
+                    app.rerun()
+            with v3:
+                if app.button("🟦  Flat", key=f"flat_{active_idx}", use_container_width=True):
+                    app.session_state[f"view_mode_{active_idx}"] = "flat"
+                    app.rerun()
+        else:
+            app.info("🕳️ STL file not found — re-run the prompt to generate a 3D model.")
 
+    elif status == "fail" and result:
+        # ── Failure workspace ──────────────────────────────────
+        app.error(f"❌ Generation failed after {result.get('retries', '?')} attempts.")
+
+        if result.get("final_error"):
+            with app.expander("🔍 Final error details", expanded=True):
+                app.code(result["final_error"], language="text")
+
+        if result.get("history"):
+            with app.expander(f"📋 Retry log ({len(result['history'])} attempts)", expanded=False):
+                for h in result["history"]:
+                    attempt  = h.get("attempt", "?")
+                    err_type = h.get("type", "Error")
+                    msg = (
+                        h.get("details", {}).get("message", "")
+                        if err_type == "PhysicsValidation"
+                        else h.get("message", "")
+                    )
+                    app.markdown(f"**Attempt {attempt}** — `{err_type}`")
+                    if msg:
+                        app.code(msg[:400], language="text")
 
 
 #  FIXED BOTTOM INPUT BAR

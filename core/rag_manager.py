@@ -16,13 +16,18 @@ import os
 os.environ.setdefault("HF_HUB_DISABLE_IMPLICIT_TOKEN", "1")
 
 # ── Path anchors (portable) ────────────────────────────────────────────────────
-_PROJECT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-_CHROMA  = os.path.join(_PROJECT, ".DB")
+_PROJECT  = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+_DOCS_ROOT = os.path.abspath(os.path.join(_PROJECT, "..", "docs"))
+_CHROMA   = os.path.join(_PROJECT, ".DB")
+
+# All doc sub-libraries inside ~/Code/project-IIIT/docs/
 _DOCS_DIRS = [
-    os.path.join(_PROJECT, "build123d-docs"),
-    os.path.join(_PROJECT, "chroma"),
-    os.path.join(_PROJECT, "langgraph"),
-    os.path.join(_PROJECT, "ollama-python"),
+    os.path.join(_DOCS_ROOT, "build123d-docs"),
+    os.path.join(_DOCS_ROOT, "chroma"),
+    os.path.join(_DOCS_ROOT, "langgraph-repo"),
+    os.path.join(_DOCS_ROOT, "mlx"),
+    os.path.join(_DOCS_ROOT, "sentence-transformers"),
+    os.path.join(_DOCS_ROOT, "ollama-python"),
 ]
 
 COLLECTION_NAME = "build123d_docs"
@@ -80,8 +85,9 @@ def build_vector_db() -> int:
     docs_dirs = _docs_dirs()
     if not docs_dirs:
         raise FileNotFoundError(
-            "None of the docs directories found inside project folder. Expected:\n" +
-            "\n".join(f"  {p}" for p in _DOCS_DIRS)
+            f"No docs directories found under: {_DOCS_ROOT}\n"
+            "Expected sub-folders: build123d-docs, chroma, langgraph-repo, mlx, sentence-transformers, ollama-python\n"
+            + "\n".join(f"  {p}" for p in _DOCS_DIRS)
         )
 
     client     = _get_client()

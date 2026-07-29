@@ -8,8 +8,8 @@ CAD pipeline, and writes results to:
   dataset/benchmark.csv   — one row per prompt (compact)
   dataset/benchmark.log   — full per-attempt error trace
 
-GPU note: Ollama serves qwen2.5-coder on GPU automatically if CUDA/Metal
-is available.  No extra flags needed here.
+MLX note: Qwen2.5-Coder-7B-Instruct-4bit runs locally via mlx-lm on
+Apple Silicon. The model is loaded once and kept in memory for the run.
 
 Usage:
   python test.py                    # run all prompts
@@ -135,7 +135,7 @@ def _print_header(total: int, category_filter: str):
     print(f"  Dataset   : {DATASET_CSV}")
     print(f"  Prompts   : {total}")
     print(f"  Category  : {category_filter or 'ALL'}")
-    print(f"  Model     : qwen2.5-coder (Ollama / GPU)")
+    print(f"  Model     : Qwen2.5-Coder-7B-Instruct-4bit (MLX / Apple Silicon)")
     print(f"  Output    : {BENCHMARK_CSV}")
     print(f"  Log       : {BENCHMARK_LOG}")
     print(f"  Started   : {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")

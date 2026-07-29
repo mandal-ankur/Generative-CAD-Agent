@@ -1,7 +1,7 @@
 """
 prompts.py
 ==========
-System prompt for the LangGraph CAD pipeline (Qwen2.5-Coder / Ollama).
+System prompt for the LangGraph CAD pipeline (Qwen2.5-Coder-7B-Instruct / MLX).
 Tuned for local 7B-class models — concise rules, no XML tags.
 """
 

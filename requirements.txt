@@ -2,8 +2,6 @@
 #uv
 streamlit
 build123d
-google-genai
-openai
 python-dotenv
 requests
 chromadb

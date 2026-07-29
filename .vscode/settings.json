@@ -1,8 +1,0 @@
-{
-  "python.defaultInterpreterPath": "/Users/ankur-mandal/Code/project-IIIT/docs/.env/bin/python",
-  "python.analysis.extraPaths": [
-    "/Users/ankur-mandal/Code/project-IIIT/docs/.env/lib/python3.11/site-packages"
-  ],
-  "python.analysis.pythonPath": "/Users/ankur-mandal/Code/project-IIIT/docs/.env/bin/python",
-  "pylance.inlayHints.variableTypes": false
-}

@@ -3,7 +3,6 @@
 streamlit
 build123d
 google-genai
-ollama
 openai
 python-dotenv
 requests

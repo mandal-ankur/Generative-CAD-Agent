@@ -109,25 +109,10 @@ def planner_node(state: CADState) -> dict:
 
 
 def coder_node(state: CADState) -> dict:
-    import ollama
+    from core.llm_client import generate_response
 
-    messages = [{"role": "user", "content": state["llm_prompt"]}]
-    if state.get("requires_blueprint"):
-        blueprint_code = get_shape_blueprint(state["requires_blueprint"])
-        messages.insert(0, {
-            "role": "system",
-            "content": (
-                f"Base your design on this functional blueprint:\n{blueprint_code}\n\n"
-                "CRITICAL: Adjust ALL dimensions and logic to match the user request. "
-                "Do not copy the blueprint dimensions blindly."
-            ),
-        })
-
-    try:
-        resp = ollama.chat(model="qwen2.5-coder", messages=messages)
-        llm_response = resp.message.content
-    except Exception:
-        llm_response = None
+    force_tool = state.get("requires_blueprint", "")
+    llm_response = generate_response(state["llm_prompt"], force_tool=force_tool)
 
     return {"llm_response": llm_response, "attempt": state.get("attempt", 0) + 1}
 

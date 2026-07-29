@@ -301,3 +301,21 @@ Original Traceback: Python Execution Error: name 'Fillet' is not defined
   [Attempt 13] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
   [Attempt 14] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
   [Attempt 15] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+
+[2026-07-29 10:31:26] ID=gui_1785321069 | GUI | FAIL | attempts=15 | time=17.53s
+  Prompt: create a cube of 15mm side
+  [Attempt 1] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 2] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 3] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 4] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 5] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 6] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 7] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 8] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 9] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 10] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 11] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 12] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 13] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 14] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.
+  [Attempt 15] (FormatError): FORMAT ERROR: No Python code block found. Wrap output in ```python ... ``` blocks.

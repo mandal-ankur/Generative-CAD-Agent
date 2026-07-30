@@ -10,314 +10,37 @@ app.set_page_config(
 )
 
 
-#  CUSTOM CSS — premium dark theme
+#  LOAD CSS FROM templates/ ─────────────────────────────────────────────────
+#
+#  Each section has its own file for easy editing:
+#    templates/global.css    — base reset, font, app background, Streamlit overrides
+#    templates/sidebar.css   — sidebar panel, history cards, status badges
+#    templates/workspace.css — header bar, model tag, placeholder, response cards
+#    templates/input_bar.css — fixed bottom input bar and text input overrides
+#    templates/buttons.css   — generic buttons + Generate (form submit) button
 
-app.markdown("""
-<style>
-    /* ── Global ──────────────────────────────────────────── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+import os as _os
 
-    html, body, [class*="css"] {
-        font-family: 'Inter', sans-serif;
-    }
+_CSS_FILES = [
+    "global.css",
+    "sidebar.css",
+    "workspace.css",
+    "input_bar.css",
+    "buttons.css",
+]
 
-    .stApp {
-        background: #0d0f1a;
-    }
+def _load_css() -> str:
+    """Read every CSS template file and merge into one <style> block."""
+    _templates_dir = _os.path.join(_os.path.dirname(__file__), "templates")
+    parts = []
+    for fname in _CSS_FILES:
+        path = _os.path.join(_templates_dir, fname)
+        with open(path, "r", encoding="utf-8") as _f:
+            parts.append(f"    /* {'─'*4} {fname} {'─'*4} */\n" + _f.read())
+    return "<style>\n" + "\n\n".join(parts) + "\n</style>"
 
-    /* ── Sidebar — always visible, no collapse button ────── */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #111327 0%, #0d0f1a 100%);
-        border-right: 1px solid rgba(255,255,255,0.06);
-        min-width: 260px !important;
-        max-width: 260px !important;
-    }
+app.markdown(_load_css(), unsafe_allow_html=True)
 
-    /* Hide the sidebar collapse/expand toggle arrow */
-    [data-testid="stSidebarCollapseButton"],
-    button[kind="header"] {
-        display: none !important;
-    }
-
-    [data-testid="stSidebar"] .block-container {
-        padding-top: 1.5rem;
-    }
-
-    .sidebar-title {
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #6b7280;
-        margin-bottom: 0.75rem;
-        padding-left: 0.25rem;
-    }
-
-    /* History item card */
-    .history-item {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 10px;
-        padding: 0.65rem 0.85rem;
-        margin-bottom: 0.55rem;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .history-item:hover {
-        background: rgba(99, 102, 241, 0.12);
-        border-color: rgba(99, 102, 241, 0.35);
-        transform: translateX(2px);
-    }
-
-    .history-item-prompt {
-        font-size: 0.82rem;
-        color: #d1d5db;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        max-width: 200px;
-    }
-
-    .history-item-meta {
-        font-size: 0.70rem;
-        color: #6b7280;
-        margin-top: 0.25rem;
-        display: flex;
-        gap: 0.5rem;
-        align-items: center;
-    }
-
-    .badge-success {
-        background: rgba(34, 197, 94, 0.15);
-        color: #4ade80;
-        border: 1px solid rgba(74, 222, 128, 0.2);
-        border-radius: 4px;
-        padding: 0.05rem 0.35rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-    }
-
-    .badge-fail {
-        background: rgba(239, 68, 68, 0.15);
-        color: #f87171;
-        border: 1px solid rgba(248, 113, 113, 0.2);
-        border-radius: 4px;
-        padding: 0.05rem 0.35rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-    }
-
-    .badge-pending {
-        background: rgba(234, 179, 8, 0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(251, 191, 36, 0.2);
-        border-radius: 4px;
-        padding: 0.05rem 0.35rem;
-        font-size: 0.65rem;
-        font-weight: 600;
-    }
-
-    /* ── Main area ───────────────────────────────────────── */
-    .main-header {
-        background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%);
-        border: 1px solid rgba(99,102,241,0.2);
-        padding: 1.1rem 1.5rem;
-        border-radius: 12px;
-        margin-bottom: 1.2rem;
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .main-header-title {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: #f9fafb;
-    }
-
-    .main-header-sub {
-        font-size: 0.80rem;
-        color: #9ca3af;
-        margin-top: 0.1rem;
-    }
-
-    /* Workspace placeholder */
-    .workspace-placeholder {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 400px;
-        background: rgba(255,255,255,0.02);
-        border: 2px dashed rgba(255,255,255,0.07);
-        border-radius: 16px;
-        color: #374151;
-        text-align: center;
-        padding: 2rem;
-    }
-
-    .workspace-placeholder-text {
-        font-size: 1.05rem;
-        font-weight: 500;
-        color: #4b5563;
-    }
-
-    .workspace-placeholder-sub {
-        font-size: 0.82rem;
-        color: #374151;
-        margin-top: 0.4rem;
-    }
-
-    /* Status pill */
-    .status-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        background: rgba(99,102,241,0.12);
-        border: 1px solid rgba(99,102,241,0.25);
-        border-radius: 999px;
-        padding: 0.3rem 0.75rem;
-        font-size: 0.78rem;
-        color: #a5b4fc;
-        font-weight: 500;
-    }
-
-    .pulse-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #818cf8;
-        animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50%       { opacity: 0.4; transform: scale(0.75); }
-    }
-
-    /* ── Bottom input bar ────────────────────────────────── */
-    .input-bar-wrapper {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(0deg, #0d0f1a 70%, transparent 100%);
-        padding: 1rem 1.5rem 1.5rem 1.5rem;
-        z-index: 999;
-    }
-
-    .input-inner {
-        max-width: 900px;
-        margin: 0 auto;
-        background: rgba(17, 19, 39, 0.95);
-        border: 1px solid rgba(99,102,241,0.25);
-        border-radius: 14px;
-        padding: 0.6rem 0.6rem 0.6rem 1rem;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        backdrop-filter: blur(12px);
-        box-shadow: 0 -4px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(99,102,241,0.1);
-    }
-
-    /* Override Streamlit text input inside input bar */
-    .input-bar-wrapper .stTextInput > div > div > input {
-        background: transparent !important;
-        border: none !important;
-        color: #f3f4f6 !important;
-        font-size: 0.92rem !important;
-        box-shadow: none !important;
-        padding: 0.4rem 0 !important;
-    }
-
-    .input-bar-wrapper .stTextInput > div > div > input::placeholder {
-        color: #6b7280 !important;
-    }
-
-    .input-bar-wrapper .stTextInput > div {
-        border: none !important;
-        box-shadow: none !important;
-    }
-
-    /* Sidebar / generic buttons (Select, Clear History, view toggles) */
-    .stButton button {
-        background: rgba(255,255,255,0.05) !important;
-        color: #d1d5db !important;
-        border: 1px solid rgba(255,255,255,0.1) !important;
-        border-radius: 10px !important;
-        font-weight: 500 !important;
-        font-size: 0.85rem !important;
-        padding: 0.45rem 1.1rem !important;
-        transition: all 0.2s ease !important;
-        white-space: nowrap;
-    }
-
-    .stButton button:hover {
-        background: rgba(99,102,241,0.15) !important;
-        border-color: rgba(99,102,241,0.35) !important;
-        color: #a5b4fc !important;
-    }
-
-    /* Generate (form submit) button — matches the top header */
-    [data-testid="stFormSubmitButton"] button {
-        background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%) !important;
-        color: #a5b4fc !important;
-        border: 1px solid rgba(99,102,241,0.35) !important;
-        border-radius: 10px !important;
-        font-weight: 600 !important;
-        font-size: 0.85rem !important;
-        padding: 0.45rem 1.1rem !important;
-        transition: all 0.2s ease !important;
-        white-space: nowrap;
-    }
-
-    [data-testid="stFormSubmitButton"] button:hover {
-        background: linear-gradient(135deg, #2d2a6e 0%, #1a2035 100%) !important;
-        border-color: rgba(99,102,241,0.6) !important;
-        box-shadow: 0 0 16px rgba(99,102,241,0.25) !important;
-        transform: translateY(-1px) !important;
-    }
-
-    /* Hide "Press Enter to submit" helper text */
-    [data-testid="InputInstructions"],
-    .stForm small { display: none !important; }
-
-    /* ── Chat-style response cards ───────────────────────── */
-    .response-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.07);
-        border-radius: 14px;
-        padding: 1.2rem 1.4rem;
-        margin-bottom: 1rem;
-    }
-
-    .response-card-prompt {
-        font-size: 0.82rem;
-        font-weight: 600;
-        color: #a5b4fc;
-        margin-bottom: 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
-
-    /* ── Hide default Streamlit elements ─────────────────── */
-    #MainMenu, footer, header { visibility: hidden; }
-    .block-container { padding-top: 1rem !important; padding-bottom: 8rem !important; }
-
-    /* Hide every known variant of Streamlit's bottom violet stripe */
-    [data-testid="stDecoration"],
-    [data-testid="stBottom"],
-    [data-testid="stBottomBlockContainer"],
-    [data-testid="stStatusWidget"],
-    .stDecorationBar,
-    iframe[title="streamlit_stl"] + div { display: none !important; }
-
-    /* Prevent horizontal scrollbar bleed */
-    body { overflow-x: hidden !important; }
-</style>
-""", unsafe_allow_html=True)
 
 
 #  SESSION STATE INIT
@@ -392,10 +115,14 @@ with app.sidebar:
 
 
 # Header bar
-app.markdown("""
+from core.llm_client import MODEL_ID as _MODEL_ID
+app.markdown(f"""
 <div class="main-header">
-    <div>
-        <div class="main-header-title">Live Workspace</div>
+    <div style="display:flex; flex-direction:column; gap:0.3rem;">
+        <div style="display:flex; align-items:center;">
+            <div class="main-header-title">Live Workspace</div>
+            <span class="model-tag">{_MODEL_ID}</span>
+        </div>
         <div class="main-header-sub">AI-powered 3D CAD generation with physics validation</div>
     </div>
 </div>

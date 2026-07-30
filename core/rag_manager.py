@@ -27,7 +27,7 @@ _DOCS_DIRS = [
     os.path.join(_DOCS_ROOT, "langgraph-repo"),
     os.path.join(_DOCS_ROOT, "mlx"),
     os.path.join(_DOCS_ROOT, "sentence-transformers"),
-    os.path.join(_DOCS_ROOT, "ollama-python"),
+    #os.path.join(_DOCS_ROOT, "ollama-python"),
 ]
 
 COLLECTION_NAME = "build123d_docs"

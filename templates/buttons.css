@@ -1,0 +1,44 @@
+/* ── buttons.css ──────────────────────────────────────────────────────────
+   Two button tiers:
+     1. Generic (.stButton) — sidebar actions, view toggles, etc.
+     2. Generate ([data-testid="stFormSubmitButton"]) — matches the header.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* ── Generic / utility buttons ─────────────────────────────────────────── */
+.stButton button {
+    background: rgba(255,255,255,0.05) !important;
+    color: #d1d5db !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
+    border-radius: 10px !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    padding: 0.45rem 1.1rem !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap;
+}
+
+.stButton button:hover {
+    background: rgba(99,102,241,0.15) !important;
+    border-color: rgba(99,102,241,0.35) !important;
+    color: #a5b4fc !important;
+}
+
+/* ── Generate / form-submit button — mirrors the top header ────────────── */
+[data-testid="stFormSubmitButton"] button {
+    background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%) !important;
+    color: #a5b4fc !important;
+    border: 1px solid rgba(99,102,241,0.35) !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 0.85rem !important;
+    padding: 0.45rem 1.1rem !important;
+    transition: all 0.2s ease !important;
+    white-space: nowrap;
+}
+
+[data-testid="stFormSubmitButton"] button:hover {
+    background: linear-gradient(135deg, #2d2a6e 0%, #1a2035 100%) !important;
+    border-color: rgba(99,102,241,0.6) !important;
+    box-shadow: 0 0 16px rgba(99,102,241,0.25) !important;
+    transform: translateY(-1px) !important;
+}

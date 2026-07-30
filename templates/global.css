@@ -1,0 +1,28 @@
+/* ── global.css ───────────────────────────────────────────────────────────
+   Base reset, font import, app background.
+   ─────────────────────────────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+.stApp {
+    background: #0d0f1a;
+}
+
+/* ── Hide default Streamlit chrome ─────────────────────────────────────── */
+#MainMenu, footer, header { visibility: hidden; }
+.block-container { padding-top: 1rem !important; padding-bottom: 8rem !important; }
+
+/* Hide every known variant of Streamlit's bottom violet stripe */
+[data-testid="stDecoration"],
+[data-testid="stBottom"],
+[data-testid="stBottomBlockContainer"],
+[data-testid="stStatusWidget"],
+.stDecorationBar,
+iframe[title="streamlit_stl"] + div { display: none !important; }
+
+/* Prevent horizontal scrollbar bleed */
+body { overflow-x: hidden !important; }

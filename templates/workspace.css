@@ -1,0 +1,117 @@
+/* ── workspace.css ────────────────────────────────────────────────────────
+   Main content area: header bar, model tag, workspace placeholder,
+   status pill, pulse animation, response cards.
+   ─────────────────────────────────────────────────────────────────────── */
+
+/* ── Top header bar ────────────────────────────────────────────────────── */
+.main-header {
+    background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%);
+    border: 1px solid rgba(99,102,241,0.2);
+    padding: 1.1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.main-header-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #f9fafb;
+}
+
+.main-header-sub {
+    font-size: 0.80rem;
+    color: #9ca3af;
+    margin-top: 0.1rem;
+}
+
+/* LLM model pill badge */
+.model-tag {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: #a5b4fc;
+    letter-spacing: 0.01em;
+    margin-left: 0.85rem;
+    white-space: nowrap;
+}
+
+/* ── Empty workspace placeholder ───────────────────────────────────────── */
+.workspace-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    background: rgba(255,255,255,0.02);
+    border: 2px dashed rgba(255,255,255,0.07);
+    border-radius: 16px;
+    color: #374151;
+    text-align: center;
+    padding: 2rem;
+}
+
+.workspace-placeholder-text {
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: #4b5563;
+}
+
+.workspace-placeholder-sub {
+    font-size: 0.82rem;
+    color: #374151;
+    margin-top: 0.4rem;
+}
+
+/* ── Running status pill ───────────────────────────────────────────────── */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(99,102,241,0.12);
+    border: 1px solid rgba(99,102,241,0.25);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.78rem;
+    color: #a5b4fc;
+    font-weight: 500;
+}
+
+.pulse-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #818cf8;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* ── Chat-style response cards ─────────────────────────────────────────── */
+.response-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.response-card-prompt {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #a5b4fc;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}

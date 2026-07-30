@@ -14,4 +14,4 @@ source "${SCRIPT_DIR}/.env/bin/activate"
 
 echo "✅ Activated: ${VIRTUAL_ENV}"
 echo "   Python: $(python --version)"
-echo "   UV_PROJECT_ENVIRONMENT=${UV_PROJECT_ENVIRONMENT}"
+#echo "   UV_PROJECT_ENVIRONMENT=${UV_PROJECT_ENVIRONMENT}"

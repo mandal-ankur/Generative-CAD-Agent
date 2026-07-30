@@ -5,7 +5,6 @@ import time
 
 app.set_page_config(
     page_title="AI CAD Agent",
-    #page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -26,10 +25,18 @@ app.markdown("""
         background: #0d0f1a;
     }
 
-    /* ── Sidebar ─────────────────────────────────────────── */
+    /* ── Sidebar — always visible, no collapse button ────── */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #111327 0%, #0d0f1a 100%);
         border-right: 1px solid rgba(255,255,255,0.06);
+        min-width: 260px !important;
+        max-width: 260px !important;
+    }
+
+    /* Hide the sidebar collapse/expand toggle arrow */
+    [data-testid="stSidebarCollapseButton"],
+    button[kind="header"] {
+        display: none !important;
     }
 
     [data-testid="stSidebar"] .block-container {
@@ -114,9 +121,9 @@ app.markdown("""
     /* ── Main area ───────────────────────────────────────── */
     .main-header {
         background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%);
-        border-bottom: 1px solid rgba(99,102,241,0.2);
+        border: 1px solid rgba(99,102,241,0.2);
         padding: 1.1rem 1.5rem;
-        border-radius: 12px 12px 0 0;
+        border-radius: 12px;
         margin-bottom: 1.2rem;
         display: flex;
         align-items: center;
@@ -148,12 +155,6 @@ app.markdown("""
         color: #374151;
         text-align: center;
         padding: 2rem;
-    }
-
-    .workspace-placeholder-icon {
-        font-size: 3.5rem;
-        margin-bottom: 1rem;
-        opacity: 0.5;
     }
 
     .workspace-placeholder-text {
@@ -239,11 +240,30 @@ app.markdown("""
         box-shadow: none !important;
     }
 
-    /* Submit button */
+    /* Sidebar / generic buttons (Select, Clear History, view toggles) */
     .stButton button {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
-        color: white !important;
-        border: none !important;
+        background: rgba(255,255,255,0.05) !important;
+        color: #d1d5db !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        border-radius: 10px !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+        padding: 0.45rem 1.1rem !important;
+        transition: all 0.2s ease !important;
+        white-space: nowrap;
+    }
+
+    .stButton button:hover {
+        background: rgba(99,102,241,0.15) !important;
+        border-color: rgba(99,102,241,0.35) !important;
+        color: #a5b4fc !important;
+    }
+
+    /* Generate (form submit) button — matches the top header */
+    [data-testid="stFormSubmitButton"] button {
+        background: linear-gradient(135deg, #1e1b4b 0%, #111827 100%) !important;
+        color: #a5b4fc !important;
+        border: 1px solid rgba(99,102,241,0.35) !important;
         border-radius: 10px !important;
         font-weight: 600 !important;
         font-size: 0.85rem !important;
@@ -252,11 +272,16 @@ app.markdown("""
         white-space: nowrap;
     }
 
-    .stButton button:hover {
-        background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+    [data-testid="stFormSubmitButton"] button:hover {
+        background: linear-gradient(135deg, #2d2a6e 0%, #1a2035 100%) !important;
+        border-color: rgba(99,102,241,0.6) !important;
+        box-shadow: 0 0 16px rgba(99,102,241,0.25) !important;
         transform: translateY(-1px) !important;
-        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4) !important;
     }
+
+    /* Hide "Press Enter to submit" helper text */
+    [data-testid="InputInstructions"],
+    .stForm small { display: none !important; }
 
     /* ── Chat-style response cards ───────────────────────── */
     .response-card {
@@ -280,6 +305,17 @@ app.markdown("""
     /* ── Hide default Streamlit elements ─────────────────── */
     #MainMenu, footer, header { visibility: hidden; }
     .block-container { padding-top: 1rem !important; padding-bottom: 8rem !important; }
+
+    /* Hide every known variant of Streamlit's bottom violet stripe */
+    [data-testid="stDecoration"],
+    [data-testid="stBottom"],
+    [data-testid="stBottomBlockContainer"],
+    [data-testid="stStatusWidget"],
+    .stDecorationBar,
+    iframe[title="streamlit_stl"] + div { display: none !important; }
+
+    /* Prevent horizontal scrollbar bleed */
+    body { overflow-x: hidden !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -292,7 +328,8 @@ if "active_idx" not in app.session_state:
     app.session_state.active_idx = None      # which history item is focused in workspace
 if "pending_prompt" not in app.session_state:
     app.session_state.pending_prompt = None
-
+if "input_key" not in app.session_state:
+    app.session_state.input_key = 0          # rotated to clear the text input after submission
 
 
 #  SIDEBAR — Prompt History
@@ -301,7 +338,6 @@ with app.sidebar:
     # Logo / title
     app.markdown("""
     <div style='text-align:center; margin-bottom:1.5rem;'>
-        <div style='font-size:2rem; margin-bottom:0.3rem;'>🤖</div>
         <div style='font-size:1rem; font-weight:700; color:#f9fafb;'>CAD Agent</div>
         <div style='font-size:0.72rem; color:#6b7280;'>Intent-Grounded 3D Generator</div>
     </div>
@@ -312,7 +348,6 @@ with app.sidebar:
     if not app.session_state.history:
         app.markdown("""
         <div style='text-align:center; padding: 2rem 0.5rem; color:#374151;'>
-            <div style='font-size:1.8rem; margin-bottom:0.5rem;'>💬</div>
             <div style='font-size:0.80rem;'>Your prompts will<br>appear here</div>
         </div>
         """, unsafe_allow_html=True)
@@ -321,7 +356,7 @@ with app.sidebar:
             real_idx = len(app.session_state.history) - 1 - i
             status = item.get("status", "pending")
             badge_class = {"success": "badge-success", "fail": "badge-fail"}.get(status, "badge-pending")
-            badge_label = {"success": "✓ Done", "fail": "✗ Failed"}.get(status, "⏳ Running")
+            badge_label = {"success": "Done", "fail": "Failed"}.get(status, "Running")
             ts = item.get("timestamp", "")
 
             is_active = (app.session_state.active_idx == real_idx)
@@ -346,7 +381,7 @@ with app.sidebar:
     # Divider + clear button
     if app.session_state.history:
         app.markdown("<br>", unsafe_allow_html=True)
-        if app.button("🗑️ Clear History", use_container_width=True):
+        if app.button("Clear History", use_container_width=True):
             app.session_state.history = []
             app.session_state.active_idx = None
             app.rerun()
@@ -359,7 +394,6 @@ with app.sidebar:
 # Header bar
 app.markdown("""
 <div class="main-header">
-    <span style='font-size:1.5rem;'>⚙️</span>
     <div>
         <div class="main-header-title">Live Workspace</div>
         <div class="main-header-sub">AI-powered 3D CAD generation with physics validation</div>
@@ -378,15 +412,15 @@ if app.session_state.pending_prompt:
     app.session_state.history.append(entry)
     app.session_state.active_idx = len(app.session_state.history) - 1
 
-    # Show a live status while "processing"
-    with app.status(f'🔄 Generating: "{prompt}"', expanded=True) as status_widget:
-        app.write("🧠 **Agent 1 — Planner**: Extracting design intent…")
+    # Show a live status while processing
+    with app.status(f'Generating: "{prompt}"', expanded=True) as status_widget:
+        app.write("**Agent 1 — Planner**: Extracting design intent…")
         time.sleep(0.4)
-        app.write("📚 **RAG Retrieval**: Fetching relevant build123d docs from ChromaDB…")
+        app.write("**RAG Retrieval**: Fetching relevant build123d docs from ChromaDB…")
         time.sleep(0.4)
-        app.write("⚙️ **Agent 2 — Coder**: Sending structured JSON prompt to LLM…")
+        app.write("**Agent 2 — Coder**: Sending structured JSON prompt to LLM…")
         time.sleep(0.4)
-        app.write("🔁 **Retry Loop**: Validating geometry with Physics Engine…")
+        app.write("**Retry Loop**: Validating geometry with Physics Engine…")
         time.sleep(0.4)
 
         # ── REAL BACKEND CALL ──
@@ -416,10 +450,10 @@ if app.session_state.pending_prompt:
         # ─────────────────────────────────────────────────────
 
         if result["success"]:
-            status_widget.update(label="✅ Generation complete!", state="complete", expanded=False)
+            status_widget.update(label="Generation complete!", state="complete", expanded=False)
             app.session_state.history[app.session_state.active_idx]["status"] = "success"
         else:
-            status_widget.update(label="❌ Generation failed", state="error", expanded=True)
+            status_widget.update(label="Generation failed", state="error", expanded=True)
             app.session_state.history[app.session_state.active_idx]["status"] = "fail"
 
     app.session_state.history[app.session_state.active_idx]["result"] = result
@@ -433,7 +467,6 @@ if active_idx is None or not app.session_state.history:
     # Empty state
     app.markdown("""
     <div class="workspace-placeholder">
-        <div class="workspace-placeholder-icon">🛠️</div>
         <div class="workspace-placeholder-text">Your workspace is empty</div>
         <div class="workspace-placeholder-sub">Submit a prompt below to start generating 3D CAD models</div>
     </div>
@@ -446,7 +479,7 @@ else:
     # Prompt echo
     app.markdown(f"""
     <div class="response-card">
-        <div class="response-card-prompt">👤 Your prompt</div>
+        <div class="response-card-prompt">Your prompt</div>
         <div style='font-size:0.95rem; color:#f3f4f6; font-weight:500;'>{entry['prompt']}</div>
     </div>
     """, unsafe_allow_html=True)
@@ -481,27 +514,27 @@ else:
             if step_path and os.path.exists(step_path):
                 with open(step_path, "rb") as f:
                     app.download_button(
-                        label="📥 Download STEP",
+                        label="Download STEP",
                         data=f,
                         file_name=os.path.basename(step_path),
                         mime="application/octet-stream",
                         use_container_width=True,
                     )
             else:
-                app.button("📥 Download STEP (unavailable)", disabled=True, use_container_width=True)
+                app.button("Download STEP (unavailable)", disabled=True, use_container_width=True)
 
         with dl_col2:
             if stl_path and os.path.exists(stl_path):
                 with open(stl_path, "rb") as f:
                     app.download_button(
-                        label="📥 Download STL",
+                        label="Download STL",
                         data=f,
                         file_name=os.path.basename(stl_path),
                         mime="application/sla",
                         use_container_width=True,
                     )
             else:
-                app.button("📥 Download STL (unavailable)", disabled=True, use_container_width=True)
+                app.button("Download STL (unavailable)", disabled=True, use_container_width=True)
 
         # ── Live 3D Viewer ─────────────────────────────────────
         if stl_path and os.path.exists(stl_path):
@@ -516,7 +549,7 @@ else:
             '>
                 <div style='font-size:0.82rem; font-weight:600; color:#a5b4fc;
                             margin-bottom:0.6rem; display:flex; align-items:center; gap:0.4rem;'>
-                    🧊 Live 3D Preview
+                    Live 3D Preview
                     <span style='font-size:0.70rem; color:#6b7280; font-weight:400;'>
                         — drag to rotate &nbsp;·&nbsp; scroll to zoom
                     </span>
@@ -546,30 +579,30 @@ else:
             app.markdown("<br>", unsafe_allow_html=True)
             v1, v2, v3, _ = app.columns([1, 1, 1, 4])
             with v1:
-                if app.button("🔵  Solid", key=f"solid_{active_idx}", use_container_width=True):
+                if app.button("Solid", key=f"solid_{active_idx}", use_container_width=True):
                     app.session_state[f"view_mode_{active_idx}"] = "material"
                     app.rerun()
             with v2:
-                if app.button("🔲  Wireframe", key=f"wire_{active_idx}", use_container_width=True):
+                if app.button("Wireframe", key=f"wire_{active_idx}", use_container_width=True):
                     app.session_state[f"view_mode_{active_idx}"] = "wireframe"
                     app.rerun()
             with v3:
-                if app.button("🟦  Flat", key=f"flat_{active_idx}", use_container_width=True):
+                if app.button("Flat", key=f"flat_{active_idx}", use_container_width=True):
                     app.session_state[f"view_mode_{active_idx}"] = "flat"
                     app.rerun()
         else:
-            app.info("🕳️ STL file not found — re-run the prompt to generate a 3D model.")
+            app.info("STL file not found — re-run the prompt to generate a 3D model.")
 
     elif status == "fail" and result:
         # ── Failure workspace ──────────────────────────────────
-        app.error(f"❌ Generation failed after {result.get('retries', '?')} attempts.")
+        app.error(f"Generation failed after {result.get('retries', '?')} attempts.")
 
         if result.get("final_error"):
-            with app.expander("🔍 Final error details", expanded=True):
+            with app.expander("Final error details", expanded=True):
                 app.code(result["final_error"], language="text")
 
         if result.get("history"):
-            with app.expander(f"📋 Retry log ({len(result['history'])} attempts)", expanded=False):
+            with app.expander(f"Retry log ({len(result['history'])} attempts)", expanded=False):
                 for h in result["history"]:
                     attempt  = h.get("attempt", "?")
                     err_type = h.get("type", "Error")
@@ -584,25 +617,41 @@ else:
 
 
 #  FIXED BOTTOM INPUT BAR
+#
+#  Enter key support: text_input fires on_change on every keystroke including
+#  Enter. We detect a submit intent via a callback that sets pending_prompt.
+#  The input key is rotated after each submission so Streamlit renders a fresh
+#  (empty) widget on the next rerun — this is the idiomatic way to clear a
+#  text_input in Streamlit.
+
+def _on_input_change():
+    """Called on every change to the text input (including Enter)."""
+    val = app.session_state.get(f"prompt_field_{app.session_state.input_key}", "").strip()
+    # Streamlit fires on_change both for normal keystrokes AND for Enter.
+    # We use a separate 'enter_submitted' flag set by the form submit mechanism.
+    # Because st.text_input doesn't expose an "enter pressed" event directly,
+    # we rely on st.form to capture Enter — see the form below.
 
 app.markdown('<div class="input-bar-wrapper"><div class="input-inner">', unsafe_allow_html=True)
 
 with app.container():
-    input_col, btn_col = app.columns([9, 1])
-    with input_col:
-        prompt_input = app.text_input(
-            label="prompt",
-            label_visibility="collapsed",
-            placeholder="Describe the 3D part you want to create…",
-            key="prompt_input_field",
-        )
-    with btn_col:
-        submit = app.button("Generate ✦", use_container_width=True)
+    with app.form(key="prompt_form", clear_on_submit=True):
+        input_col, btn_col = app.columns([9, 1])
+        with input_col:
+            prompt_input = app.text_input(
+                label="prompt",
+                label_visibility="collapsed",
+                placeholder="Describe the 3D part you want to create…",
+                key=f"prompt_field_{app.session_state.input_key}",
+            )
+        with btn_col:
+            submit = app.form_submit_button("Generate", use_container_width=True)
 
 app.markdown("</div></div>", unsafe_allow_html=True)
 
-# Handle submission
+# Handle submission (button click OR Enter key inside the form)
 if submit and prompt_input.strip():
     app.session_state.pending_prompt = prompt_input.strip()
+    # Rotate the key → Streamlit will render a fresh empty input on next rerun
+    app.session_state.input_key += 1
     app.rerun()
-

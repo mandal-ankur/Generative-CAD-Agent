@@ -18,7 +18,7 @@ from core.rag_manager import retrieve_context
 from core.guardrails import get_smart_feedback
 from core.tools import get_shape_blueprint
 
-MAX_RETRIES = 15
+MAX_RETRIES = 10
 CAD_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "CAD")
 
 
